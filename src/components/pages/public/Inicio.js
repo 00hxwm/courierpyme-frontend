@@ -1,65 +1,89 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import axios from "axios";
 
-function Inicio() {
-  return(
-    <>
-    <img 
-            src="/images/Zyre.png" 
-            alt="Banner Zyre" 
-            className="img-fluid w-100 shadow-lg"
-            style={{objectFit: 'cover', maxHeight: '650px'}}
-        />
-    <div className='container my-5'>
-        
-        <div className="text-center mb-3">
-            <h1 className="display-3 fw-bold mb-2">
-                Bienvenido a Zyre
-            </h1>
+const Inicio = () => {
+  const [codigo, setCodigo] = useState("");
+  const [envio, setEnvio] = useState(null);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-            <div>
-                <Link to="/menu" className="btn btn-danger btn-lg px-5 py-3 fw-bold shadow">
-                    Pide ahora
-                </Link>
-            </div>
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!codigo.trim()) return;
+
+    setError("");
+    setEnvio(null);
+    setLoading(true);
+
+    try {
+      const res = await axios.get(`http://localhost:8080/api/envios/tracking/${codigo.trim()}`);
+      console.log("Respuesta recibida:", res.data);
+
+      // Si el backend responde un Array [...], extraemos el primer elemento
+      const data = Array.isArray(res.data) ? res.data[0] : res.data;
+
+      if (!data) {
+        setError("No se encontró ningún envío con ese código.");
+      } else {
+        setEnvio(data);
+      }
+    } catch (err) {
+      console.error("Error en la petición:", err);
+      if (err.response && err.response.status === 404) {
+        setError("No se encontró ningún envío con ese código.");
+      } else {
+        setError("Error de conexión con el backend.");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="container py-5" style={{ maxWidth: "600px" }}>
+      <div className="text-center mb-4">
+        <h2>Rastreo de Envíos - CourierPyme</h2>
+        <p className="text-muted">Consulta el estado de tu paquete en tiempo real</p>
+      </div>
+
+      <form onSubmit={handleSubmit} className="card p-4 shadow-sm mb-4">
+        <div className="mb-3">
+          <label className="form-label fw-bold">Código de Seguimiento</label>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Ej: ENV-1001"
+            value={codigo}
+            onChange={(e) => setCodigo(e.target.value)}
+            required
+          />
         </div>
+        <button type="submit" disabled={loading} className="btn btn-primary w-100">
+          {loading ? "Buscando..." : "Consultar Estado"}
+        </button>
+      </form>
 
-        <div className="row mt-5 g-4">
-            
-            <div className="col-md-4">
-                <div className="card h-100 border-0 shadow-sm text-center p-4 bg-light">
-                    <div className="display-4 mb-3"></div>
-                    <h4 className="card-title">Puntos Zyre</h4>
-                    <p className="card-text text-muted">
-                        Gana <strong>1 punto</strong> por cada $1.000 pesos gastados.
-                    </p>
-                </div>
-            </div>
+      {error && <div className="alert alert-danger">{error}</div>}
 
-            <div className="col-md-4">
-                <div className="card h-100 border-0 shadow-sm text-center p-4 bg-light">
-                    <div className="display-4 mb-3"></div>
-                    <h4 className="card-title">Envios</h4>
-                    <p className="card-text text-muted">
-                        Ten un 5% de descuento al pedir por la web.
-                    </p>
-                </div>
-            </div>
-
-            <div className="col-md-4">
-                <div className="card h-100 border-0 shadow-sm text-center p-4 bg-light">
-                    <div className="display-4 mb-3"></div>
-                    <h4 className="card-title">Canjear</h4>
-                    <p className="card-text text-muted">
-                        Canjea productos con tus puntos Zyre.
-                    </p>
-                </div>
-            </div>
-
+      {envio && (
+        <div className="card shadow-sm border-success">
+          <div className="card-header bg-success text-white">
+            <h5 className="mb-0">
+              Envío #{envio.codigo_seguimiento || envio.codigoSeguimiento}
+            </h5>
+          </div>
+          <div className="card-body">
+            <p><strong>Destinatario:</strong> {envio.destinatario}</p>
+            <p><strong>Dirección:</strong> {envio.direccion}</p>
+            <p className="mb-0">
+              <strong>Estado actual:</strong>{" "}
+              <span className="badge bg-primary fs-6">{envio.estado}</span>
+            </p>
+          </div>
         </div>
+      )}
     </div>
-    </>
   );
-}
+};
 
 export default Inicio;
