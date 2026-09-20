@@ -19,15 +19,55 @@ const BarraNavegacion = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light mb-4 shadow-sm">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-black border-bottom border-dark px-4">
       <div className="container">
         <Link className="navbar-brand d-flex align-items-center" to="/">
-        <img 
-          src="/images/logo.png" /* Asegúrate de que el nombre coincida */
-          alt="Logo CourierPyme" 
-          height="40" 
-          className="me-2" 
-        />
+        <svg 
+  width="42" 
+  height="30" 
+  viewBox="0 0 92 56" 
+  fill="none" 
+  xmlns="http://www.w3.org/2000/svg"
+  className="me-2"
+>
+  <defs>
+    <filter id="navGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  {/* Chasis negro oscuro con bordes rojo sangre */}
+  <polygon
+    points="2,42 10,14 48,14 66,28 84,28 88,42"
+    fill="#121212"
+    stroke="#8A0303"
+    strokeWidth="2"
+    strokeLinejoin="miter"
+  />
+
+  {/* Parabrisas tintado negro puro */}
+  <polygon
+    points="62,28 48,16 34,16 44,28"
+    fill="#000000"
+    stroke="#FF0033"
+    strokeWidth="1.2"
+  />
+
+  {/* Ranura lateral roja estilo corte */}
+  <line x1="8" y1="30" x2="52" y2="30" stroke="#8A0303" strokeWidth="2.5" strokeDasharray="12 4 4 2" />
+
+  {/* Foco delantero afilado neón */}
+  <polygon points="82,30 87,30 85,34 80,34" fill="#FF0033" filter="url(#navGlow)" />
+
+  {/* Rueda trasera */}
+  <circle cx="22" cy="42" r="7" fill="#080808" stroke="#8A0303" strokeWidth="2" />
+  <circle cx="22" cy="42" r="2.5" fill="#FF0033" />
+
+  {/* Rueda delantera */}
+  <circle cx="68" cy="42" r="7" fill="#080808" stroke="#8A0303" strokeWidth="2" />
+  <circle cx="68" cy="42" r="2.5" fill="#FF0033" />
+</svg>
           <span className="fw-bold text-primary">CourierPyme</span>
         </Link>
 

@@ -16,7 +16,7 @@ const Inicio = () => {
     setLoading(true);
 
     try {
-      const res = await axios.get(`http://localhost:8080/api/envios/tracking/${codigo.trim()}`);
+      const res = await axios.get(`https://kjef9of8j7.execute-api.us-east-1.amazonaws.com/Desarrollo/api/shipments/tracking/${codigo.trim()}`);
       console.log("Respuesta recibida:", res.data);
 
       // Si el backend responde un Array [...], extraemos el primer elemento
@@ -43,7 +43,7 @@ const Inicio = () => {
     <div className="container py-5" style={{ maxWidth: "600px" }}>
       <div className="text-center mb-4">
         <h2>Rastreo de Envíos - CourierPyme</h2>
-        <p className="text-muted">Consulta el estado de tu paquete en tiempo real</p>
+        <p className="text">Consulta el estado de tu paquete en tiempo real</p>
       </div>
 
       <form onSubmit={handleSubmit} className="card p-4 shadow-sm mb-4">
@@ -73,8 +73,6 @@ const Inicio = () => {
             </h5>
           </div>
           <div className="card-body">
-            <p><strong>Destinatario:</strong> {envio.destinatario}</p>
-            <p><strong>Dirección:</strong> {envio.direccion}</p>
             <p className="mb-0">
               <strong>Estado actual:</strong>{" "}
               <span className="badge bg-primary fs-6">{envio.estado}</span>

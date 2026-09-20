@@ -15,7 +15,7 @@ const Dashboard = () => {
         account: accounts[0]
       });
 
-      const response = await fetch("http://localhost:8081/api/shipments", {
+      const response = await fetch("https://kjef9of8j7.execute-api.us-east-1.amazonaws.com/Desarrollo/api/shipments", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${responseToken.accessToken}`

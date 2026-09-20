@@ -4,7 +4,7 @@ import { InteractionRequiredAuthError } from "@azure/msal-browser";
 import axios from "axios";
 import { loginRequest } from "../../../authConfig";
 
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8081";
+const API_URL = process.env.REACT_APP_API_URL || "https://kjef9of8j7.execute-api.us-east-1.amazonaws.com/Desarrollo";
 
 // Debe coincidir con EstadoEnvio.java del backend
 const SIGUIENTES = {
