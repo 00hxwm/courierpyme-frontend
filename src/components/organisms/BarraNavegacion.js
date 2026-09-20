@@ -21,8 +21,13 @@ const BarraNavegacion = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light mb-4 shadow-sm">
       <div className="container">
-        
         <Link className="navbar-brand d-flex align-items-center" to="/">
+        <img 
+          src="/images/logo.png" /* Asegúrate de que el nombre coincida */
+          alt="Logo CourierPyme" 
+          height="40" 
+          className="me-2" 
+        />
           <span className="fw-bold text-primary">CourierPyme</span>
         </Link>
 
@@ -42,17 +47,17 @@ const BarraNavegacion = () => {
               <NavLink className="nav-link" to="/">Inicio</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/menu">Servicios</NavLink>
+              <NavLink className="nav-link" to="/">Servicios</NavLink>
             </li>
             <li className="nav-item">
               <NavLink className="nav-link" to="/nosotros">Nosotros</NavLink>
             </li>
             
-            {/* El enlace al Dashboard solo es visible para usuarios logueados */}
+            
             {isAuthenticated && (
               <li className="nav-item">
-                <NavLink className="nav-link text-success fw-bold" to="/admin">
-                  Dashboard Admin
+                <NavLink className="nav-link text-success fw-bold" to="/dashboard">
+                  Dashboard
                 </NavLink>
               </li>
             )}
@@ -73,13 +78,11 @@ const BarraNavegacion = () => {
             ) : (
                 <>
                     <li className="nav-item ms-2">
-                        {/* Reemplazamos el NavLink por un botón que ejecuta handleLogin */}
+                        
                         <button className="btn btn-outline-primary" onClick={handleLogin}>
                             Ingresar con Microsoft
                         </button>
                     </li>
-                    {/* El botón "Crear Cuenta" se elimina, ya que en un entorno corporativo 
-                        las cuentas las crea el administrador en Azure/Entra ID */}
                 </>
             )}
 
