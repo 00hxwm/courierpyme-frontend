@@ -6,6 +6,7 @@ const Dashboard = () => {
   const { instance, accounts } = useMsal();
   const [envios, setEnvios] = useState([]);
   const [error, setError] = useState("");
+  
 
   const cargarEnvios = async () => {
     try {
@@ -14,7 +15,7 @@ const Dashboard = () => {
         account: accounts[0]
       });
 
-      const response = await fetch("http://localhost:8081/api/bff/envios", {
+      const response = await fetch("http://localhost:8081/api/shipments", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${responseToken.accessToken}`

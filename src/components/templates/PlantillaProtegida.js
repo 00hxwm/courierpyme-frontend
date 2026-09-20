@@ -15,7 +15,7 @@ const PlantillaProtegida = () => {
 
   return (
     <>
-      {/* Si NO está logueado */}
+      
       <UnauthenticatedTemplate>
         <div className="container mt-5">
           <div className="alert alert-warning text-center shadow-sm p-5">
@@ -28,7 +28,7 @@ const PlantillaProtegida = () => {
         </div>
       </UnauthenticatedTemplate>
 
-      {/* Si SÍ está logueado */}
+     
       <AuthenticatedTemplate>
         <div className="d-flex" style={{ minHeight: '100vh' }}>
           
@@ -43,21 +43,24 @@ const PlantillaProtegida = () => {
                 <li className="nav-item">
                   <Link to="/shipments" className={`nav-link text-white rounded ${location.pathname === '/shipments' ? 'bg-primary' : ''}`}>Gestión de Envíos</Link>
                 </li>
+                <li className="nav-item">
+                  <Link to="/Catalog" className={`nav-link text-white rounded ${location.pathname === '/Catalog' ? 'bg-primary' : ''}`}>Catalogo</Link>
+                </li>
               </ul>
             </div>
 
-            {/* Operador y botones de salida */}
+            
             <div className="mt-auto p-4 border-top border-secondary">
               <div className="text-center mb-3">
                 <small className="text-muted d-block">
-                  {/* Validamos que accounts exista antes de buscar el rol */}
+                  
                   {accounts && accounts.length > 0 && accounts[0]?.idTokenClaims?.roles?.[0] 
                     ? accounts[0].idTokenClaims.roles[0] 
                     : "Usuario"}:
                 </small>
                 
                 <strong className="text-white">
-                  {/* Validamos que accounts exista antes de buscar el nombre */}
+                  
                   {accounts && accounts.length > 0 ? accounts[0].name.toUpperCase() : "CARGANDO..."}
                 </strong>
               </div>
@@ -70,7 +73,7 @@ const PlantillaProtegida = () => {
             </div>
           </div>
 
-          {/* Área de contenido dinámico */}
+         
           <div className="flex-grow-1 bg-light p-4 overflow-auto">
             <Outlet /> 
           </div>

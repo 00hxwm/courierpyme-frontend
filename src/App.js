@@ -7,6 +7,7 @@ import Nosotros from "./components/pages/public/Nosotros";
 import Dashboard from "./components/pages/authenticated/Dashboard";
 import Shipments from "./components/pages/authenticated/Shipments";
 import PlantillaProtegida from "./components/templates/PlantillaProtegida";
+import Catalog from "./components/pages/authenticated/Catalog";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route element={<PlantillaProtegida />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/shipments" element={<Shipments />} />
+          <Route path="/catalog" element={<Catalog />} />
         </Route>
       </Routes>
     </Router>
