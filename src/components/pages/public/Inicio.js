@@ -19,7 +19,7 @@ const Inicio = () => {
       const res = await axios.get(`https://kjef9of8j7.execute-api.us-east-1.amazonaws.com/Desarrollo/api/shipments/tracking/${codigo.trim()}`);
       console.log("Respuesta recibida:", res.data);
 
-      // Si el backend responde un Array [...], extraemos el primer elemento
+      
       const data = Array.isArray(res.data) ? res.data[0] : res.data;
 
       if (!data) {
